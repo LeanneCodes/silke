@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Correct import for useRouter hook
+import { useRouter } from 'next/navigation';
 import Navbar from '../components/Navbar';
 
 const SavedCities = () => {
@@ -9,7 +9,12 @@ const SavedCities = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const cities = JSON.parse(localStorage.getItem('savedCities') || '[]');
+    const cities = [];
+    for (const key in localStorage) {
+      if (localStorage.hasOwnProperty(key) && key.startsWith('city-')) {
+        cities.push(key.replace('city-', ''));
+      }
+    }
     setSavedCities(cities);
   }, []);
 

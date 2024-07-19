@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from './components/Navbar';
-import LandingPage from './components/LandingPage';
-import WeatherDashboard from './components/WeatherDashboard';
-import { WeatherData, ForecastData } from '../types';
+import Navbar from '../components/Navbar';
+import WeatherDashboard from '../components/WeatherDashboard';
+import { WeatherData, ForecastData } from '../../types';
 
 const fetchWeather = async (city: string): Promise<WeatherData> => {
   const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
@@ -33,7 +32,7 @@ const groupForecastsByDay = (list: ForecastData[]) => {
   return dailyForecasts;
 };
 
-const WeatherPage = () => {
+const DashboardPage = () => {
   const router = useRouter();
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [currentWeather, setCurrentWeather] = useState<ForecastData | null>(null);
@@ -46,7 +45,6 @@ const WeatherPage = () => {
     if (city) {
       setSelectedCity(city);
       handleCitySubmit(city);
-      localStorage.removeItem('selectedCity');
     }
   }, []);
 
@@ -63,7 +61,6 @@ const WeatherPage = () => {
       if (!localStorage.getItem(key)) {
         localStorage.setItem(key, JSON.stringify(data));
       }
-      localStorage.setItem('selectedCity', city); // Store the most recent city
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -76,29 +73,23 @@ const WeatherPage = () => {
     }
   };
 
-  const handleBack = () => {
-    setWeatherData(null);
-    setCurrentWeather(null);
-    setForecasts([]);
-    setSelectedCity(null);
-  };
-
   return (
     <div>
       <Navbar />
-      {!weatherData ? (
-        <LandingPage onCitySubmit={handleCitySubmit} />
-      ) : (
+      <h2 style={{ textAlign: 'center' }}>Dashboard</h2>
+      {weatherData && currentWeather && selectedCity ? (
         <WeatherDashboard
-          cityName={selectedCity!}
-          currentWeather={currentWeather!}
+          cityName={selectedCity}
+          currentWeather={currentWeather}
           forecasts={forecasts}
-          onBack={handleBack}
+          onBack={() => router.push('/')}
         />
+      ) : (
+        <p style={{ textAlign: 'center' }}>No recent weather data available. Please select a city.</p>
       )}
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
     </div>
   );
 };
 
-export default WeatherPage;
+export default DashboardPage;

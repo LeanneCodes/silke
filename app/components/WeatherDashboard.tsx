@@ -1,12 +1,13 @@
 import { ForecastData } from '../../types';
 
 interface WeatherDashboardProps {
+  cityName: string;
   currentWeather: ForecastData;
   forecasts: ForecastData[];
   onBack: () => void;
 }
 
-const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ currentWeather, forecasts, onBack }) => {
+const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWeather, forecasts, onBack }) => {
   const convertToCelsius = (temp: number) => (temp - 273.15).toFixed(2);
 
   const calculateDewPoint = (tempK: number, humidity: number) => {
@@ -19,6 +20,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ currentWeather, for
   return (
     <div style={{ padding: '20px' }}>
       <button onClick={onBack} style={{ marginBottom: '20px' }}>Back</button>
+      <h1>City: {cityName}</h1>
       <h2>Current Weather</h2>
       <p>Temperature: {convertToCelsius(currentWeather.main.temp)}°C</p>
       <p>Humidity: {currentWeather.main.humidity}%</p>
