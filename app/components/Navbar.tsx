@@ -6,9 +6,8 @@ const Navbar = () => {
       <div>
         <Link href="/">Home</Link>
         <Link href="/reminders" style={{ marginLeft: '15px' }}>Reminders</Link>
-      </div>
-      <div>
-        {/* Placeholder for future authentication buttons */}
+        <Link href="/account" style={{ marginLeft: '15px' }}>Account</Link>
+        <Link href="/saved-cities" style={{ marginLeft: '15px' }}>Saved Cities</Link>
       </div>
     </nav>
   );
