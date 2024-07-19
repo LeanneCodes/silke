@@ -52,7 +52,7 @@ const SavedCities = () => {
           <div
             key={index}
             onClick={() => handleCityClick(city)}
-            className='m-3 p-3 cursor-pointer w-40 text-center rounded-full uppercase hover:bg-[#ccc]'
+            className='m-3 p-3 cursor-pointer w-40 text-center rounded-full uppercase hover:bg-darkGrey'
             style={{ border: '1px solid #ccc' }}
           >
             <p>{city}</p>
