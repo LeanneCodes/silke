@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '../components/Navbar';
 
 const SavedCities = () => {
   const [savedCities, setSavedCities] = useState<string[]>([]);
@@ -25,7 +24,6 @@ const SavedCities = () => {
 
   return (
     <div>
-      <Navbar />
       <h2 style={{ textAlign: 'center' }}>Saved Cities</h2>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {savedCities.map((city, index) => (

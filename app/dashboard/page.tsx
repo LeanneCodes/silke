@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '../components/Navbar';
 import WeatherDashboard from '../components/WeatherDashboard';
 import { WeatherData, ForecastData } from '../../types';
 
@@ -75,7 +74,6 @@ const DashboardPage = () => {
 
   return (
     <div>
-      <Navbar />
       <h2 style={{ textAlign: 'center' }}>Dashboard</h2>
       {weatherData && currentWeather && selectedCity ? (
         <WeatherDashboard
