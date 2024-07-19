@@ -1,11 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
-import WeatherDashboard from './components/WeatherDashboard';
-import { WeatherData, ForecastData } from '../types';
+import { WeatherData } from '../types';
 
 const fetchWeather = async (city: string): Promise<WeatherData> => {
   const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
@@ -19,86 +17,32 @@ const fetchWeather = async (city: string): Promise<WeatherData> => {
   return response.json();
 };
 
-const groupForecastsByDay = (list: ForecastData[]) => {
-  const dailyForecasts: { [key: string]: ForecastData[] } = {};
-
-  list.forEach((forecast) => {
-    const date = forecast.dt_txt.split(' ')[0];
-    if (!dailyForecasts[date]) {
-      dailyForecasts[date] = [];
-    }
-    dailyForecasts[date].push(forecast);
-  });
-
-  return dailyForecasts;
-};
-
-const WeatherPage = () => {
-  const router = useRouter();
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [currentWeather, setCurrentWeather] = useState<ForecastData | null>(null);
-  const [forecasts, setForecasts] = useState<ForecastData[]>([]);
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+const HomePage = () => {
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const city = localStorage.getItem('selectedCity');
-    if (city) {
-      setSelectedCity(city);
-      handleCitySubmit(city);
-      localStorage.removeItem('selectedCity');
-    }
-  }, []);
 
   const handleCitySubmit = async (city: string) => {
     try {
       const data = await fetchWeather(city);
-      setWeatherData(data);
-      setCurrentWeather(data.list[0]);
-      setForecasts(Object.values(groupForecastsByDay(data.list)).map(dayForecasts => dayForecasts[0]));
-      setSelectedCity(city);
+      localStorage.setItem('selectedCity', city);
+      localStorage.setItem(`city-${city}`, JSON.stringify(data));
       setError(null);
-
-      const key = `city-${city}`;
-      if (!localStorage.getItem(key)) {
-        localStorage.setItem(key, JSON.stringify(data));
-      }
-      localStorage.setItem('selectedCity', city); // Store the most recent city
+      window.location.href = '/dashboard';
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
         setError('An unknown error occurred');
       }
-      setWeatherData(null);
-      setCurrentWeather(null);
-      setForecasts([]);
     }
-  };
-
-  const handleBack = () => {
-    setWeatherData(null);
-    setCurrentWeather(null);
-    setForecasts([]);
-    setSelectedCity(null);
   };
 
   return (
     <div>
       <Navbar />
-      {!weatherData ? (
-        <LandingPage onCitySubmit={handleCitySubmit} />
-      ) : (
-        <WeatherDashboard
-          cityName={selectedCity!}
-          currentWeather={currentWeather!}
-          forecasts={forecasts}
-          onBack={handleBack}
-        />
-      )}
+      <LandingPage onCitySubmit={handleCitySubmit} />
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
     </div>
   );
 };
 
-export default WeatherPage;
+export default HomePage;

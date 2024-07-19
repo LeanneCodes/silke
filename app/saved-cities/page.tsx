@@ -20,7 +20,7 @@ const SavedCities = () => {
 
   const handleCityClick = (city: string) => {
     localStorage.setItem('selectedCity', city);
-    router.push('/');
+    router.push('/dashboard');
   };
 
   return (
