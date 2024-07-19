@@ -24,7 +24,7 @@ const SavedCities = () => {
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center' }}>Saved Cities</h2>
+      <h1 className="text-4xl font-montserrat mb-6 text-center">Saved Cities</h1>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {savedCities.map((city, index) => (
           <div

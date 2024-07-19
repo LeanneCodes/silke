@@ -13,10 +13,10 @@ const Navbar = () => {
           </h1>
         </div>
         <div>
-          <Link href="/">Home</Link>
-          <Link href="/about" style={{ marginLeft: '15px' }}>About</Link>
-          <Link href="/dashboard" style={{ marginLeft: '15px' }}>Dashboard</Link>
-          <Link href="/saved-cities" style={{ marginLeft: '15px' }}>Saved Cities</Link>
+          <Link href="/" className='font-montserrat'>Home</Link>
+          <Link href="/faqs" style={{ marginLeft: '15px' }} className='font-montserrat'>FAQs</Link>
+          <Link href="/dashboard" style={{ marginLeft: '15px' }} className='font-montserrat'>Dashboard</Link>
+          <Link href="/saved-cities" style={{ marginLeft: '15px' }} className='font-montserrat'>Saved Cities</Link>
         </div>
       </div>
     </nav>

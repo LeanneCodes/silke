@@ -74,7 +74,7 @@ const DashboardPage = () => {
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center' }}>Dashboard</h2>
+      <h1 className="text-4xl font-montserrat mb-6 text-center">Dashboard</h1>
       {weatherData && currentWeather && selectedCity ? (
         <WeatherDashboard
           cityName={selectedCity}
