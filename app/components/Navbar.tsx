@@ -3,14 +3,14 @@ import Link from 'next/link';
 
 const Navbar = () => {
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
+    <nav className='flex justify-between px-20 py-8'>
       <div className='flex justify-between w-full align-middle'>
         <div>
-        <h1 className='font-playwrite text-3xl'>
-          <Link href="/">
-            silke
-          </Link>
-        </h1>
+          <h1 className='font-playwrite text-3xl'>
+            <Link href="/">
+              silke
+            </Link>
+          </h1>
         </div>
         <div>
           <Link href="/">Home</Link>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
 import { WeatherData } from '../types';
+import Footer from './components/Footer';
 
 const fetchWeather = async (city: string): Promise<WeatherData> => {
   const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
@@ -41,6 +42,7 @@ const HomePage = () => {
       <Navbar />
       <LandingPage onCitySubmit={handleCitySubmit} />
       {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+      <Footer />
     </div>
   );
 };
