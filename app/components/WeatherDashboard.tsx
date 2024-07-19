@@ -20,7 +20,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
   return (
     <div style={{ padding: '20px' }}>
       <button onClick={onBack} style={{ marginBottom: '20px' }}>Back</button>
-      <h1>City: {cityName}</h1>
+      <h1>City: {cityName.toUpperCase()}</h1>
       <h2>Current Weather</h2>
       <p>Temperature: {convertToCelsius(currentWeather.main.temp)}°C</p>
       <p>Humidity: {currentWeather.main.humidity}%</p>
