@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Dashboard from './components/Dashboard';
+import Navbar from './components/Navbar';
 
 interface ForecastData {
   main: {
@@ -104,6 +105,7 @@ const WeatherPage = () => {
 
   return (
     <div>
+      <Navbar />
       <Dashboard />
       <h1>Weather App</h1>
       <input
