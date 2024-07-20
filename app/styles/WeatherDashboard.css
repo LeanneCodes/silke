@@ -1,0 +1,52 @@
+/* Custom Radio Button Styles */
+.radio-container {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .radio-container input {
+    display: none;
+  }
+  
+  .radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .radio-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #d2a767; /* Primary color */
+    margin-right: 8px;
+    margin-top: -7px;
+    margin-left: -2px;
+    transition: background 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  }
+  
+  .radio-container input:checked + .radio-label .radio-button {
+    background-color: #d2a767; /* Primary color */
+  }
+  
+  .radio-container input:checked + .radio-label .radio-button::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #d2a767;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+  }
+  
+  .radio-label span {
+    font-size: 16px;
+    color: white; /* Primary color */
+    margin-top: -5px;
+  }
+  
