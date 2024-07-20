@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { WiDayCloudy, WiDaySunny, WiRain, WiSnow, WiThunderstorm, WiCloud } from 'react-icons/wi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
@@ -13,10 +13,20 @@ interface WeatherDashboardProps {
 }
 
 const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWeather, forecasts }) => {
-  const [unit, setUnit] = useState<'C' | 'F'>('C');
+  const getInitialUnit = () => {
+    const savedUnit = localStorage.getItem('unit');
+    return savedUnit === 'F' ? 'F' : 'C';
+  };
+
+  const [unit, setUnit] = useState<'C' | 'F'>(getInitialUnit);
+
+  useEffect(() => {
+    localStorage.setItem('unit', unit);
+    console.log(`Saved unit to local storage: ${unit}`);
+  }, [unit]);
 
   const convertToCelsius = (temp: number) => Math.round(temp - 273.15);
-  const convertToFahrenheit = (temp: number) => Math.round((temp - 273.15) * 9/5 + 32);
+  const convertToFahrenheit = (temp: number) => Math.round((temp - 273.15) * 9 / 5 + 32);
 
   const calculateDewPoint = (tempK: number, humidity: number) => {
     const tempCelsius = tempK - 273.15;
@@ -31,7 +41,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
 
   const getDewPoint = (tempK: number, humidity: number) => {
     const dewPointCelsius = calculateDewPoint(tempK, humidity);
-    return unit === 'C' ? dewPointCelsius : Math.round(dewPointCelsius * 9/5 + 32);
+    return unit === 'C' ? dewPointCelsius : Math.round(dewPointCelsius * 9 / 5 + 32);
   };
 
   const capitalizeFirstLetter = (string: string) => {
@@ -119,7 +129,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
 
               return (
                 <div key={index} className="m-2 p-2 w-28 md:w-40 text-white rounded-lg">
-                  <p className="mb-5">{format(new Date(forecast.dt_txt), 'dd MMMM')}</p>
+                  <p className="mb-5">{index === 0 ? "Today" : format(new Date(forecast.dt_txt), 'dd MMMM')}</p>
                   <p>Dew Point: {getDewPoint(forecast.main.temp, forecast.main.humidity)}°{unit}</p>
                   <p>Temp: {getTemperature(forecast.main.temp)}°{unit}</p>
                   <p>Humidity: {forecast.main.humidity}%</p>
@@ -134,7 +144,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
               );
             })}
           </div>
-          <p className="text-center text-xs md:text-sm text-gray-600">This website is just a guide. Please take extra precautions where necessary.</p>
+          <p className="text-center mt-5 text-xs md:text-sm text-gray-400">This website is just a guide. Please take extra precautions where necessary.</p>
         </div>
       </div>
     </div>

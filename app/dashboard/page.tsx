@@ -74,7 +74,7 @@ const DashboardPage = () => {
 
   return (
     <div className='flex flex-col'>
-      <h1 className="text-8xl font-montserrat mb-6 text-center capitalize">{selectedCity}</h1>
+      <h1 className="text-8xl font-montserrat my-6 text-center capitalize">{selectedCity}</h1>
       {weatherData && currentWeather && selectedCity ? (
         <WeatherDashboard
           cityName={selectedCity}
