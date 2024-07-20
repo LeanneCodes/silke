@@ -171,7 +171,6 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
 
         {/* 5-Day Forecast */}
         <div className="flex flex-col items-center text-2xl font-montserrat">
-          <h2 className="text-lg md:text-xl mt-4">5-Day Forecast</h2>
           <div className="flex flex-wrap justify-around w-full text-xs md:text-sm text-center">
             {forecasts.map((forecast, index) => {
               const forecastDewPoint = calculateDewPoint(forecast.main.temp, forecast.main.humidity);
@@ -194,7 +193,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
               );
             })}
           </div>
-          <p className="text-center mt-5 text-xs md:text-sm text-gray-400">This website is just a guide. Please take extra precautions where necessary.</p>
+          <p className="text-center mt-3 text-xs md:text-sm text-gray-400">This website is just a guide. Please take extra precautions where necessary.</p>
         </div>
       </div>
     </div>
