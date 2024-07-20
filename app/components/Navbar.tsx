@@ -36,11 +36,12 @@ const Navbar = () => {
         </div>
       </div>
       {isOpen && (
-        <div className='md:hidden bg-primary text-white'>
-          <Link href="/" className='block px-5 py-2 hover:text-mustard' onClick={toggleMenu}>Home</Link>
-          <Link href="/faqs" className='block px-5 py-2 hover:text-mustard' onClick={toggleMenu}>FAQs</Link>
-          <Link href="/dashboard" className='block px-5 py-2 hover:text-mustard' onClick={toggleMenu}>Dashboard</Link>
-          <Link href="/saved-cities" className='block px-5 py-2 hover:text-mustard' onClick={toggleMenu}>Saved Cities</Link>
+        <div className='md:hidden text-white'>
+          <Link href="/" className='block px-5 py-2 font-montserrat hover:text-mustard' onClick={toggleMenu}>Home</Link>
+          <Link href="/faqs" className='block px-5 py-2 font-montserrat hover:text-mustard' onClick={toggleMenu}>FAQs</Link>
+          <Link href="/dashboard" className='block px-5 py-2 font-montserrat hover:text-mustard' onClick={toggleMenu}>Dashboard</Link>
+          <Link href="/saved-cities" className='block px-5 py-2 font-montserrat hover:text-mustard' onClick={toggleMenu}>Saved Cities</Link>
+          <Link href="/reminder" className='block px-5 py-2 font-montserrat hover:text-mustard'>Appointment Reminder</Link>
         </div>
       )}
     </nav>
