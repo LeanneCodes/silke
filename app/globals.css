@@ -17,6 +17,7 @@ html, body {
 
 body {
     color: white;
+    background-color: #2e343c;
     background-image: url('/weather-hero.jpg');
     background-position: center;
     background-repeat: no-repeat;

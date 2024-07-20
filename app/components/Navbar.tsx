@@ -27,6 +27,7 @@ const Navbar = () => {
           <Link href="/faqs" className='font-montserrat hover:text-mustard'>FAQs</Link>
           <Link href="/dashboard" className='font-montserrat hover:text-mustard'>Dashboard</Link>
           <Link href="/saved-cities" className='font-montserrat hover:text-mustard'>Saved Cities</Link>
+          <Link href="/reminder" className='font-montserrat hover:text-mustard'>Appointment Reminder</Link>
         </div>
         <div className='md:hidden'>
           <button onClick={toggleMenu}>
