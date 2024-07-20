@@ -26,7 +26,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onCitySubmit }) => {
           style={{ padding: '10px', width: '200px', marginRight: '10px', borderRadius: '10px' }}
           className='font-montserrat text-darkGrey'
         />
-        <button onClick={handleSubmit} style={{ padding: '10px 20px' }} className='font-montserrat'>Check Weather</button>
+        <button onClick={handleSubmit} style={{ padding: '10px 20px' }} className='font-montserrat hover:text-mustard'>Check Weather</button>
       </div>
     </div>
   );
