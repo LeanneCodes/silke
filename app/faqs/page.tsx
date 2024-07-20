@@ -5,6 +5,7 @@ import faqs from './faqs.json';
 
 const About: React.FC = () => {
   const [activeIndexes, setActiveIndexes] = useState<{ [category: string]: number | null }>({});
+  const [searchTerm, setSearchTerm] = useState('');
 
   const toggleAnswer = (category: string, index: number) => {
     setActiveIndexes(prev => ({
@@ -13,10 +14,34 @@ const About: React.FC = () => {
     }));
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredFaqs = Object.entries(faqs).reduce((acc, [category, faqList]) => {
+    const filteredList = faqList.filter(faq =>
+      faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    if (filteredList.length > 0) {
+      acc[category] = filteredList;
+    }
+    return acc;
+  }, {} as { [key: string]: typeof faqs.general });
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-montserrat mb-6 text-center">Frequently Asked Questions</h1>
-      {Object.entries(faqs).map(([category, faqList]) => (
+      <div className="mb-6 text-center">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search FAQs"
+          className="py-2 ps-4 mt-6 border border-gray-300 rounded-full xs:w-full md:w-3/5 lg:w-2/5 text-darkGrey"
+        />
+      </div>
+      {Object.entries(filteredFaqs).map(([category, faqList]) => (
         <div key={category} className="mb-8">
           <h2 className="text-3xl font-montserrat mb-4">{category.replace(/([A-Z])/g, ' $1')}</h2>
           <div className="space-y-4">
