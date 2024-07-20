@@ -14,7 +14,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onCitySubmit }) => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center h-[90vh] w-dvh mt-[-100px]'>
+    <div className='flex flex-col justify-center items-center h-[90vh] w-dvh mt-[-50px]'>
       <h1 className='font-playwrite text-9xl mb-10'>silke</h1>
       <p className='font-montserrat mb-10 px-20 text-center'>Ensure perfect weather and dew point for your next silk press!</p>
       <div className='flex'>

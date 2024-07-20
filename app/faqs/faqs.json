@@ -20,7 +20,7 @@
     },
     {
       "question": "What dew point range is ideal for maintaining a silk press?",
-      "answer": "A dew point range between 1.11°C to 10°C (30°F and 50°F) is generally considered ideal for maintaining a silk press. This range has less moisture in the air, reducing the risk of frizz and maintaining the sleekness of the silk press."
+      "answer": "A dew point range between 10°C and 18°C is generally considered ideal for maintaining a silk press. Here are three subranges within this ideal range:<br><br>10°C to 13°C (50°F to 55°F): This range is on the lower end, where the air is relatively dry. It's generally good for maintaining a silk press, but you might need to ensure your hair is adequately moisturized to prevent dryness and brittleness.<br><br>14°C to 16°C (57°F to 61°F): This mid-range is often considered ideal. There's enough moisture in the air to keep your hair hydrated without causing significant frizz. It's an optimal balance for maintaining the sleekness of a silk press.<br><br>17°C to 18°C (63°F to 65°F): This upper range has more moisture in the air but is still within a safe limit for a silk press. You may need to use anti-humidity products to help maintain the style and reduce the risk of frizz."
     },
     {
       "question": "How does high humidity affect a silk press?",
@@ -29,7 +29,11 @@
     {
       "question": "Can a silk press last longer in cold weather?",
       "answer": "Yes, a silk press can last longer in cold weather, provided the air is dry. Cold weather typically has lower humidity levels, which means less moisture in the air to affect the hair. However, extremely cold weather can also make hair dry and brittle, so it’s essential to maintain proper hair moisture levels."
-    }
+    },
+    {
+      "question": "Tell me more ranges for dew points?",
+      "answer": "Below 10°C (50°F): The air is relatively dry, which can lead to the hair becoming dry and potentially brittle. While this can help maintain the silk press by reducing frizz, it may also require additional moisturizing products to keep the hair healthy.<br><br>Between 10°C and 18°C (50°F to 65°F): This range strikes a balance where there is enough moisture to keep the hair hydrated without causing significant frizz. It helps maintain the silk press while keeping the hair smooth and manageable.<br><br>Above 18°C (65°F): The air contains more moisture, increasing the likelihood of frizz and the hair reverting to its natural curl pattern. This can shorten the longevity of a silk press and make it more challenging to maintain a sleek look."
+    }      
   ],
   "MaintenanceTips": [
     {

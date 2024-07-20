@@ -64,9 +64,7 @@ const About: React.FC = () => {
                   <span className="text-2xl">{activeIndexes[category] === index ? '-' : '+'}</span>
                 </button>
                 {activeIndexes[category] === index && (
-                  <div className="p-4 bg-white text-darkGrey font-montserrat rounded-b">
-                    {faq.answer}
-                  </div>
+                  <div className="p-4 bg-white text-darkGrey font-montserrat rounded-b" dangerouslySetInnerHTML={{ __html: faq.answer }} />
                 )}
               </div>
             ))}
