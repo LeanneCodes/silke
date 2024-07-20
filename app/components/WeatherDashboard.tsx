@@ -73,7 +73,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
         <div className="text-center">
           <div className="flex items-center justify-center">
             <FaTimes className="mr-2" />
-            <span className='text-2xl md:text-4xl'>Avoid Silk Press</span>
+            <span className='text-2xl md:text-4xl'>Avoid silk press</span>
           </div>
           <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">The air is relatively dry, which can lead to the hair becoming dry and potentially brittle.</p>
         </div>
@@ -83,7 +83,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
         <div className="text-center">
           <div className="flex items-center justify-center">
             <FaCheck className="mr-2" />
-            <span>Safe to Silk Press</span>
+            <span>Safe to silk press</span>
           </div>
           <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">You might need to ensure your hair is adequately moisturized to prevent dryness and brittleness.</p>
         </div>
@@ -93,7 +93,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
         <div className="text-center">
           <div className="flex items-center justify-center">
             <FaCheck className="mr-2" />
-            <span>Sweet Spot for Silk Press</span>
+            <span>Sweet spot for silk press</span>
           </div>
           <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">There's enough moisture in the air to keep your hair hydrated without causing significant frizz.</p>
         </div>
@@ -103,7 +103,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
         <div className="text-center">
           <div className="flex items-center justify-center">
             <FaCheck className="mr-2" />
-            <span>Safe with Risk</span>
+            <span>Safe with risk</span>
           </div>
           <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">You may need to use anti-humidity products to help maintain the style and reduce the risk of frizz.</p>
         </div>
@@ -113,7 +113,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
         <div className="text-center">
           <div className="flex items-center justify-center">
             <FaTimes className="mr-2" />
-            <span>Avoid Silk Press</span>
+            <span>Avoid silk press</span>
           </div>
         </div>
       );

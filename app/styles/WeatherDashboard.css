@@ -23,9 +23,8 @@
     border-radius: 50%;
     border: 2px solid #d2a767; /* Primary color */
     margin-right: 8px;
-    margin-top: -7px;
+    margin-top: -3px;
     margin-left: -2px;
-    transition: background 0.2s ease-in-out, border-color 0.2s ease-in-out;
   }
   
   .radio-container input:checked + .radio-label .radio-button {
@@ -47,6 +46,6 @@
   .radio-label span {
     font-size: 16px;
     color: white; /* Primary color */
-    margin-top: -5px;
+    margin-top: 0px;
   }
   
