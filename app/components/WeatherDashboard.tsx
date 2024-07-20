@@ -46,46 +46,52 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
   };
 
   const currentDewPoint = calculateDewPoint(currentWeather.main.temp, currentWeather.main.humidity);
-  const isSafeToSilkPress = currentDewPoint < 18; // Assuming 65°F (18.3°C) is the maximum safe dew point
+  const isSafeToSilkPress = currentDewPoint < 18; // Safe if dew point is less than 18°C
 
   return (
-    <div className="flex flex-col justify-between px-20 py-10">
+    <div className="flex flex-col justify-between px-5 py-10 md:px-20">
       <div className="flex flex-col justify-between w-full">
 
         {/* Current Weather Info */}
         <div className="flex flex-col items-center justify-around text-2xl font-montserrat capitalize my-5">
-          <p className={`mb-6 text-4xl ${isSafeToSilkPress ? 'text-green-500' : 'text-red-500'} flex items-center`}>
+          <p className={`mb-6 text-2xl md:text-4xl ${isSafeToSilkPress ? 'text-green-500' : 'text-red-500'} flex items-center`}>
             {isSafeToSilkPress ? <FaCheck className="mr-2" /> : <FaTimes className="mr-2" />}
             {isSafeToSilkPress ? "Safe to Silk Press" : "Avoid Silk Press"}
           </p>
-          <p className="text-6xl mb-5">Dew Point: {calculateDewPoint(currentWeather.main.temp, currentWeather.main.humidity)}°C</p>
+          <p className="text-4xl md:text-6xl mb-5">Dew Point: {calculateDewPoint(currentWeather.main.temp, currentWeather.main.humidity)}°C</p>
           <p>Temp: {convertToCelsius(currentWeather.main.temp)}°C</p>
           <p>Humidity: {currentWeather.main.humidity}%</p>
-          <div className="text-6xl mt-4">
+          <div className="text-4xl md:text-6xl mt-4">
             {getWeatherIcon(currentWeather.weather[0].description)}
           </div>
         </div>
 
         {/* 5-Day Forecast */}
         <div className="flex flex-col items-center text-2xl font-montserrat">
-          <h2 className="text-xl mt-4">5-Day Forecast</h2>
-          <div className="flex justify-around w-full text-sm text-center">
-            {forecasts.map((forecast, index) => (
-              <div key={index} className="m-2 p-4 w-40">
-                <p className="mb-5">{format(new Date(forecast.dt_txt), 'dd MMMM')}</p>
-                <p>Dew Point: {calculateDewPoint(forecast.main.temp, forecast.main.humidity)}°C</p>
-                <p>Temp: {convertToCelsius(forecast.main.temp)}°C</p>
-                <p>Humidity: {forecast.main.humidity}%</p>
-                <p className="mb-6 flex items-center justify-center">
-                  {isSafeToSilkPress ? <FaCheck className="text-green-500 mr-2" /> : <FaTimes className="text-red-500 mr-2" />}
-                  {isSafeToSilkPress ? "Safe" : "Avoid"}
-                </p>
-                <div className="flex items-center justify-center text-4xl mt-5">
-                  {getWeatherIcon(forecast.weather[0].description)}
+          <h2 className="text-lg md:text-xl mt-4">5-Day Forecast</h2>
+          <div className="flex flex-wrap justify-around w-full text-xs md:text-sm text-center">
+            {forecasts.map((forecast, index) => {
+              const forecastDewPoint = calculateDewPoint(forecast.main.temp, forecast.main.humidity);
+              const forecastSafeToSilkPress = forecastDewPoint < 18;
+
+              return (
+                <div key={index} className="m-2 p-2 w-28 md:w-40">
+                  <p className="mb-5">{format(new Date(forecast.dt_txt), 'dd MMMM')}</p>
+                  <p>Dew Point: {forecastDewPoint}°C</p>
+                  <p>Temp: {convertToCelsius(forecast.main.temp)}°C</p>
+                  <p>Humidity: {forecast.main.humidity}%</p>
+                  <p className={`mb-6 flex items-center justify-center ${forecastSafeToSilkPress ? 'text-green-500' : 'text-red-500'}`}>
+                    {forecastSafeToSilkPress ? <FaCheck className="mr-2" /> : <FaTimes className="mr-2" />}
+                    {forecastSafeToSilkPress ? "Safe" : "Avoid"}
+                  </p>
+                  <div className="flex items-center justify-center text-2xl md:text-4xl mt-5">
+                    {getWeatherIcon(forecast.weather[0].description)}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+          <p className="text-center text-xs md:text-sm text-gray-600">This website is just a guide. Please take extra precautions where necessary.</p>
         </div>
       </div>
     </div>

@@ -4,11 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     color: white;
-    background-image: url('/weather-hero.jpg'); /* Corrected file path */
+    background-image: url('/weather-hero.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    background-attachment: fixed;
 }

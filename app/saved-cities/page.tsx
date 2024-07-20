@@ -27,11 +27,15 @@ const SavedCities = () => {
 
   const handleLetterClick = (letter: string) => {
     setSelectedLetter(letter);
-    const filtered = savedCities.filter(city => city.toLowerCase().startsWith(letter.toLowerCase()));
-    setFilteredCities(filtered);
+    if (letter === 'All') {
+      setFilteredCities(savedCities);
+    } else {
+      const filtered = savedCities.filter(city => city.toLowerCase().startsWith(letter.toLowerCase()));
+      setFilteredCities(filtered);
+    }
   };
 
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').concat('All');
 
   return (
     <div>
@@ -47,7 +51,7 @@ const SavedCities = () => {
           </button>
         ))}
       </div>
-      <div className='flex flex-wrap justify-center mt-20 h-[50vh] items-center'>
+      <div className='flex flex-wrap justify-center mt-20 w-[60%] mx-auto items-center'>
         {filteredCities.map((city, index) => (
           <div
             key={index}
