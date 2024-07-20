@@ -3,6 +3,15 @@
 import React, { useState } from 'react';
 import faqs from './faqs.json';
 
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface FAQCategory {
+  [key: string]: FAQ[];
+}
+
 const About: React.FC = () => {
   const [activeIndexes, setActiveIndexes] = useState<{ [category: string]: number | null }>({});
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,7 +36,7 @@ const About: React.FC = () => {
       acc[category] = filteredList;
     }
     return acc;
-  }, {} as { [key: string]: typeof faqs.general });
+  }, {} as FAQCategory);
 
   return (
     <div className="container mx-auto p-4">
