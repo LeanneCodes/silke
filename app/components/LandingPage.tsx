@@ -13,6 +13,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onCitySubmit }) => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className='flex flex-col justify-center items-center h-[90vh] w-dvh mt-[-50px]'>
       <h1 className='font-playwrite text-9xl mb-10'>silke</h1>
@@ -22,6 +28,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onCitySubmit }) => {
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Enter city"
           style={{ padding: '10px', width: '200px', marginRight: '10px', borderRadius: '10px' }}
           className='font-montserrat text-darkGrey'

@@ -82,7 +82,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <span className='text-2xl md:text-6xl'>Sweet spot for silk press</span>
+            <span className='text-2xl md:text-6xl'>Sweet spot for a silk press</span>
           </div>
           <p className="text-white text-sm mt-4 w-full mx-auto">There's enough moisture in the air to keep your hair hydrated without causing significant frizz.</p>
         </div>
