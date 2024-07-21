@@ -152,7 +152,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
           <p>Dew Point: {getDewPoint(currentDewPoint)}°{unit}</p>
           <p>Temperature: {getTemperature(currentWeather.main.temp)}°{unit}</p>
           <p>Humidity: {currentWeather.main.humidity}%</p>
-          <div className="text-6xl md:text-8xl mt-4">
+          <div className="text-6xl md:text-8xl mt-4" title={currentWeather.weather[0].description}>
             {getWeatherIcon(currentWeather.weather[0].description)}
           </div>
         </div>
@@ -174,7 +174,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
                     {forecastSafeToSilkPress ? <FaCheck className="mr-2" /> : <FaTimes className="mr-2" />}
                     {forecastSafeToSilkPress ? "Safe" : "Avoid"}
                   </p>
-                  <div className="flex items-center justify-center text-2xl md:text-4xl mt-5">
+                  <div className="flex items-center justify-center text-2xl md:text-4xl mt-5" title={forecast.weather[0].description}>
                     {getWeatherIcon(forecast.weather[0].description)}
                   </div>
                 </div>
