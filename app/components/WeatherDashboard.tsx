@@ -102,7 +102,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
           <div className="flex items-center justify-center">
             <span className='text-2xl md:text-6xl'>Avoid silk press</span>
           </div>
-          <p className="text-white text-sm mt-4 w-full mx-auto">There is too much moisture in the air. Your hair will likely puff up.</p>
+          <p className="text-white text-sm mt-4 w-full mx-auto">There is too much moisture in the air. Your hair will likely to swell and revert back to coils, curls or waves.</p>
         </div>
       );
     }
