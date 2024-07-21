@@ -31,8 +31,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
     return unit === 'C' ? convertToCelsius(tempK) : convertToFahrenheit(tempK);
   };
 
-  const getDewPoint = (dewPoint: number | undefined) => {
-    if (dewPoint === undefined) return 'N/A';
+  const getDewPoint = (dewPoint: number) => {
     return unit === 'C' ? dewPoint : Math.round(dewPoint * 9 / 5 + 32);
   };
 
@@ -60,63 +59,56 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
     }
   };
 
-  const dewPointMessage = (dewPoint: number | undefined) => {
-    if (dewPoint === undefined) return null;
-
+  const dewPointMessage = (dewPoint: number) => {
     if (dewPoint < 10) {
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <FaTimes className="mr-2" />
-            <span className='text-2xl md:text-4xl'>Avoid silk press</span>
+            <span className='text-2xl md:text-6xl'>Avoid silk press</span>
           </div>
-          <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">The air is relatively dry, which can lead to the hair becoming dry and potentially brittle.</p>
+          <p className="text-white text-sm mt-4 w-full mx-auto">The air is relatively dry, which can lead to the hair becoming dry and potentially brittle.</p>
         </div>
       );
     } else if (dewPoint >= 10 && dewPoint <= 13) {
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <FaCheck className="mr-2" />
-            <span>Safe to silk press</span>
+            <span className='text-2xl md:text-6xl'>Safe to silk press</span>
           </div>
-          <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">You might need to ensure your hair is adequately moisturized to prevent dryness and brittleness.</p>
+          <p className="text-white text-sm mt-4 w-full mx-auto">You might need to ensure your hair is adequately moisturised to prevent dryness and brittleness.</p>
         </div>
       );
     } else if (dewPoint >= 14 && dewPoint <= 16) {
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <FaCheck className="mr-2" />
-            <span>Sweet spot for silk press</span>
+            <span className='text-2xl md:text-6xl'>Sweet spot for silk press</span>
           </div>
-          <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">There's enough moisture in the air to keep your hair hydrated without causing significant frizz.</p>
+          <p className="text-white text-sm mt-4 w-full mx-auto">There's enough moisture in the air to keep your hair hydrated without causing significant frizz.</p>
         </div>
       );
     } else if (dewPoint >= 17 && dewPoint <= 18) {
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <FaCheck className="mr-2" />
-            <span>Safe with risk</span>
+            <span className='text-2xl md:text-6xl'>Safe with risk</span>
           </div>
-          <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">You may need to use anti-humidity products to help maintain the style and reduce the risk of frizz.</p>
+          <p className="text-white text-sm mt-4 w-full mx-auto">You may need to use anti-humidity products to help maintain the style and reduce the risk of frizz.</p>
         </div>
       );
     } else {
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <FaTimes className="mr-2" />
-            <span>Avoid silk press</span>
-            <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">There is too much moisture in the air. Your hair will likely puff up.</p>
+            <span className='text-2xl md:text-6xl'>Avoid silk press</span>
           </div>
+          <p className="text-white text-sm mt-4 w-full mx-auto">There is too much moisture in the air. Your hair will likely puff up.</p>
         </div>
       );
     }
   };
 
-  const currentDewPoint = currentWeather.main.dewPoint;
+  const currentDewPoint = currentWeather.main.dewPoint!;
 
   return (
     <div className="flex flex-col justify-between px-5 pt-5 md:px-20">
@@ -153,27 +145,27 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
         </div>
 
         {/* Current Weather Info */}
-        <div className="flex flex-col items-center justify-around text-2xl font-montserrat capitalize my-5">
+        <div className="flex flex-col items-center justify-around text-2xl font-montserrat my-5">
           <p className={`mb-6`}>
             {dewPointMessage(currentDewPoint)}
           </p>
-          <p className="text-4xl md:text-6xl mb-5">Dew Point: {getDewPoint(currentDewPoint)}°{unit}</p>
-          <p>Temp: {getTemperature(currentWeather.main.temp)}°{unit}</p>
+          <p>Dew Point: {getDewPoint(currentDewPoint)}°{unit}</p>
+          <p>Temperature: {getTemperature(currentWeather.main.temp)}°{unit}</p>
           <p>Humidity: {currentWeather.main.humidity}%</p>
-          <div className="text-4xl md:text-6xl mt-4">
+          <div className="text-6xl md:text-8xl mt-4">
             {getWeatherIcon(currentWeather.weather[0].description)}
           </div>
         </div>
 
         {/* 5-Day Forecast */}
-        <div className="flex flex-col items-center text-2xl font-montserrat">
+        <div className="flex flex-col items-center text-2xl font-montserrat bg-darkGrey bg-opacity-50 rounded-lg">
           <div className="flex flex-wrap justify-around w-full text-xs md:text-sm text-center">
             {forecasts.map((forecast, index) => {
-              const forecastDewPoint = forecast.main.dewPoint;
-              const forecastSafeToSilkPress = forecastDewPoint !== undefined && forecastDewPoint >= 10 && forecastDewPoint <= 18;
+              const forecastDewPoint = forecast.main.dewPoint!;
+              const forecastSafeToSilkPress = forecastDewPoint >= 10 && forecastDewPoint <= 18;
 
               return (
-                <div key={index} className="m-2 p-2 w-28 md:w-40 text-white rounded-lg">
+                <div key={index} className="m-2 p-2 w-28 md:w-40 rounded-lg">
                   <p className="mb-5">{index === 0 ? "Today" : format(new Date(forecast.dt_txt), 'dd MMMM')}</p>
                   <p>Dew Point: {getDewPoint(forecastDewPoint)}°{unit}</p>
                   <p>Temp: {getTemperature(forecast.main.temp)}°{unit}</p>
@@ -189,8 +181,8 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
               );
             })}
           </div>
-          <p className="text-center mt-3 text-xs md:text-sm text-gray-400">This website is just a guide. Please take extra precautions where necessary.</p>
         </div>
+        <p className="text-center mt-3 text-xs md:text-sm text-gray-400">This site is a guide using data from OpenWeatherAPI's four daily predictions. Please take additional precautions as needed.</p>
       </div>
     </div>
   );

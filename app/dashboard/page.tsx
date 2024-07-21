@@ -17,30 +17,44 @@ const fetchWeather = async (city: string): Promise<WeatherData> => {
   return response.json();
 };
 
-const calculateDewPoint = (tempK: number, humidity: number) => {
-  const tempCelsius = tempK - 273.15;
-  const alpha = ((17.625 * tempCelsius) / (243.04 + tempCelsius)) + Math.log(humidity / 100);
-  const dewPointCelsius = (243.04 * alpha) / (17.625 - alpha);
+const calculateDewPoint = (tempCelsius: number, humidity: number) => {
+  const a = 17.27;
+  const b = 237.7;
+  const gamma = (a * tempCelsius) / (b + tempCelsius) + Math.log(humidity / 100);
+  const dewPointCelsius = (b * gamma) / (a - gamma);
   return Math.round(dewPointCelsius);
 };
 
 const groupForecastsByDay = (list: ForecastData[]) => {
-  const dailyForecasts: { [key: string]: ForecastData } = {};
+  const dailyForecasts: { [key: string]: { maxTemp: number, totalHumidity: number, totalDewPoint: number, count: number } } = {};
 
   list.forEach((forecast) => {
     const date = forecast.dt_txt.split(' ')[0];
+    const tempCelsius = forecast.main.temp - 273.15;
+    const dewPoint = calculateDewPoint(tempCelsius, forecast.main.humidity);
+
     if (!dailyForecasts[date]) {
-      dailyForecasts[date] = { ...forecast };
-      dailyForecasts[date].main.dewPoint = calculateDewPoint(forecast.main.temp, forecast.main.humidity);
+      dailyForecasts[date] = { maxTemp: tempCelsius, totalHumidity: forecast.main.humidity, totalDewPoint: dewPoint, count: 1 };
     } else {
-      const currentForecast = dailyForecasts[date];
-      currentForecast.main.temp = Math.max(currentForecast.main.temp, forecast.main.temp);
-      currentForecast.main.humidity = Math.max(currentForecast.main.humidity, forecast.main.humidity);
-      currentForecast.main.dewPoint = Math.max(currentForecast.main.dewPoint!, calculateDewPoint(forecast.main.temp, forecast.main.humidity));
+      dailyForecasts[date].maxTemp = Math.max(dailyForecasts[date].maxTemp, tempCelsius);
+      dailyForecasts[date].totalHumidity += forecast.main.humidity;
+      dailyForecasts[date].totalDewPoint += dewPoint;
+      dailyForecasts[date].count += 1;
     }
   });
 
-  return Object.values(dailyForecasts);
+  return Object.keys(dailyForecasts).map(date => {
+    const dayData = dailyForecasts[date];
+    return {
+      dt_txt: `${date} 12:00:00`,
+      main: {
+        temp: dayData.maxTemp + 273.15,
+        humidity: Math.round(dayData.totalHumidity / dayData.count),
+        dewPoint: Math.round(dayData.totalDewPoint / dayData.count),
+      },
+      weather: list.find(forecast => forecast.dt_txt.startsWith(date))!.weather,
+    };
+  });
 };
 
 const DashboardPage = () => {
@@ -67,7 +81,7 @@ const DashboardPage = () => {
         ...data.list[0],
         main: {
           ...data.list[0].main,
-          dewPoint: calculateDewPoint(data.list[0].main.temp, data.list[0].main.humidity),
+          dewPoint: calculateDewPoint(data.list[0].main.temp - 273.15, data.list[0].main.humidity),
         },
       });
       setForecasts(groupForecastsByDay(data.list));
