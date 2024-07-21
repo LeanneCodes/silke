@@ -166,7 +166,9 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
 
               return (
                 <div key={index} className="m-2 p-2 w-28 md:w-40 rounded-lg">
-                  <p className="mb-5">{index === 0 ? "Today" : format(new Date(forecast.dt_txt), 'dd MMMM')}</p>
+                  <p className="mb-5">
+                    {index === 0 ? (forecasts.length === 5 ? "Tomorrow" : "Today") : format(new Date(forecast.dt_txt), 'dd MMMM')}
+                  </p>
                   <p>Dew Point: {getDewPoint(forecastDewPoint)}°{unit}</p>
                   <p>Temp: {getTemperature(forecast.main.temp)}°{unit}</p>
                   <p>Humidity: {forecast.main.humidity}%</p>
