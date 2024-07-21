@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import type { AppProps } from 'next/app';
-import '../styles/globals.css';
+import '../app/globals.css';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID; // Replace with your own tracking ID
 
