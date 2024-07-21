@@ -1,11 +1,16 @@
+export interface MainData {
+  temp: number;
+  humidity: number;
+  dewPoint?: number; // Optional property
+}
+
+export interface WeatherDescription {
+  description: string;
+}
+
 export interface ForecastData {
-  main: {
-    temp: number;
-    humidity: number;
-  };
-  weather: {
-    description: string;
-  }[];
+  main: MainData;
+  weather: WeatherDescription[];
   dt_txt: string;
 }
 

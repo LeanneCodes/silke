@@ -17,18 +17,30 @@ const fetchWeather = async (city: string): Promise<WeatherData> => {
   return response.json();
 };
 
+const calculateDewPoint = (tempK: number, humidity: number) => {
+  const tempCelsius = tempK - 273.15;
+  const alpha = ((17.625 * tempCelsius) / (243.04 + tempCelsius)) + Math.log(humidity / 100);
+  const dewPointCelsius = (243.04 * alpha) / (17.625 - alpha);
+  return Math.round(dewPointCelsius);
+};
+
 const groupForecastsByDay = (list: ForecastData[]) => {
-  const dailyForecasts: { [key: string]: ForecastData[] } = {};
+  const dailyForecasts: { [key: string]: ForecastData } = {};
 
   list.forEach((forecast) => {
     const date = forecast.dt_txt.split(' ')[0];
     if (!dailyForecasts[date]) {
-      dailyForecasts[date] = [];
+      dailyForecasts[date] = { ...forecast };
+      dailyForecasts[date].main.dewPoint = calculateDewPoint(forecast.main.temp, forecast.main.humidity);
+    } else {
+      const currentForecast = dailyForecasts[date];
+      currentForecast.main.temp = Math.max(currentForecast.main.temp, forecast.main.temp);
+      currentForecast.main.humidity = Math.max(currentForecast.main.humidity, forecast.main.humidity);
+      currentForecast.main.dewPoint = Math.max(currentForecast.main.dewPoint!, calculateDewPoint(forecast.main.temp, forecast.main.humidity));
     }
-    dailyForecasts[date].push(forecast);
   });
 
-  return dailyForecasts;
+  return Object.values(dailyForecasts);
 };
 
 const DashboardPage = () => {
@@ -51,8 +63,14 @@ const DashboardPage = () => {
     try {
       const data = await fetchWeather(city);
       setWeatherData(data);
-      setCurrentWeather(data.list[0]);
-      setForecasts(Object.values(groupForecastsByDay(data.list)).map(dayForecasts => dayForecasts[0]));
+      setCurrentWeather({
+        ...data.list[0],
+        main: {
+          ...data.list[0].main,
+          dewPoint: calculateDewPoint(data.list[0].main.temp, data.list[0].main.humidity),
+        },
+      });
+      setForecasts(groupForecastsByDay(data.list));
       setSelectedCity(city);
       setError(null);
 

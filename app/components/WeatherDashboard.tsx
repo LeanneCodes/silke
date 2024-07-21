@@ -27,20 +27,13 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
   const convertToCelsius = (temp: number) => Math.round(temp - 273.15);
   const convertToFahrenheit = (temp: number) => Math.round((temp - 273.15) * 9 / 5 + 32);
 
-  const calculateDewPoint = (tempK: number, humidity: number) => {
-    const tempCelsius = tempK - 273.15;
-    const alpha = ((17.625 * tempCelsius) / (243.04 + tempCelsius)) + Math.log(humidity / 100);
-    const dewPointCelsius = (243.04 * alpha) / (17.625 - alpha);
-    return Math.round(dewPointCelsius);
-  };
-
   const getTemperature = (tempK: number) => {
     return unit === 'C' ? convertToCelsius(tempK) : convertToFahrenheit(tempK);
   };
 
-  const getDewPoint = (tempK: number, humidity: number) => {
-    const dewPointCelsius = calculateDewPoint(tempK, humidity);
-    return unit === 'C' ? dewPointCelsius : Math.round(dewPointCelsius * 9 / 5 + 32);
+  const getDewPoint = (dewPoint: number | undefined) => {
+    if (dewPoint === undefined) return 'N/A';
+    return unit === 'C' ? dewPoint : Math.round(dewPoint * 9 / 5 + 32);
   };
 
   const capitalizeFirstLetter = (string: string) => {
@@ -67,7 +60,9 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
     }
   };
 
-  const dewPointMessage = (dewPoint: number) => {
+  const dewPointMessage = (dewPoint: number | undefined) => {
+    if (dewPoint === undefined) return null;
+
     if (dewPoint < 10) {
       return (
         <div className="text-center">
@@ -114,13 +109,14 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
           <div className="flex items-center justify-center">
             <FaTimes className="mr-2" />
             <span>Avoid silk press</span>
+            <p className="text-mustard text-sm mt-3 w-3/5 mx-auto">There is too much moisture in the air. Your hair will likely puff up.</p>
           </div>
         </div>
       );
     }
   };
 
-  const currentDewPoint = calculateDewPoint(currentWeather.main.temp, currentWeather.main.humidity);
+  const currentDewPoint = currentWeather.main.dewPoint;
 
   return (
     <div className="flex flex-col justify-between px-5 pt-5 md:px-20">
@@ -161,7 +157,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
           <p className={`mb-6`}>
             {dewPointMessage(currentDewPoint)}
           </p>
-          <p className="text-4xl md:text-6xl mb-5">Dew Point: {getDewPoint(currentWeather.main.temp, currentWeather.main.humidity)}°{unit}</p>
+          <p className="text-4xl md:text-6xl mb-5">Dew Point: {getDewPoint(currentDewPoint)}°{unit}</p>
           <p>Temp: {getTemperature(currentWeather.main.temp)}°{unit}</p>
           <p>Humidity: {currentWeather.main.humidity}%</p>
           <div className="text-4xl md:text-6xl mt-4">
@@ -173,13 +169,13 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
         <div className="flex flex-col items-center text-2xl font-montserrat">
           <div className="flex flex-wrap justify-around w-full text-xs md:text-sm text-center">
             {forecasts.map((forecast, index) => {
-              const forecastDewPoint = calculateDewPoint(forecast.main.temp, forecast.main.humidity);
-              const forecastSafeToSilkPress = forecastDewPoint >= 10 && forecastDewPoint <= 18;
+              const forecastDewPoint = forecast.main.dewPoint;
+              const forecastSafeToSilkPress = forecastDewPoint !== undefined && forecastDewPoint >= 10 && forecastDewPoint <= 18;
 
               return (
                 <div key={index} className="m-2 p-2 w-28 md:w-40 text-white rounded-lg">
                   <p className="mb-5">{index === 0 ? "Today" : format(new Date(forecast.dt_txt), 'dd MMMM')}</p>
-                  <p>Dew Point: {getDewPoint(forecast.main.temp, forecast.main.humidity)}°{unit}</p>
+                  <p>Dew Point: {getDewPoint(forecastDewPoint)}°{unit}</p>
                   <p>Temp: {getTemperature(forecast.main.temp)}°{unit}</p>
                   <p>Humidity: {forecast.main.humidity}%</p>
                   <p className={`mb-6 flex items-center justify-center ${forecastSafeToSilkPress ? 'text-green-500' : 'text-red-500'}`}>
