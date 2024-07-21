@@ -55,10 +55,10 @@ const About: React.FC = () => {
           <h2 className="text-3xl font-montserrat mb-4">{category.replace(/([A-Z])/g, ' $1')}</h2>
           <div className="space-y-4">
             {faqList.map((faq, index) => (
-              <div key={index} className='bg-sage opacity-80 rounded'>
+              <div key={index} className='bg-white text-darkGrey opacity-80 rounded'>
                 <button
                   onClick={() => toggleAnswer(category, index)}
-                  className="w-full flex justify-between items-center text-left py-2 px-4 bg-primary text-white font-montserrat rounded-t"
+                  className="w-full flex justify-between items-center text-left py-2 px-4 bg-primary text-darkgrey font-montserrat rounded-t"
                 >
                   {faq.question}
                   <span className="text-2xl">{activeIndexes[category] === index ? '-' : '+'}</span>
