@@ -64,7 +64,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <span className='text-2xl md:text-6xl'>Avoid silk press</span>
+            <span className='text-3xl md:text-6xl'>Avoid silk press</span>
           </div>
           <p className="text-white text-sm mt-4 w-full mx-auto">The air is relatively dry, which can lead to the hair becoming dry and potentially brittle.</p>
         </div>
@@ -73,7 +73,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <span className='text-2xl md:text-6xl'>Safe to silk press</span>
+            <span className='text-3xl md:text-6xl'>Safe to silk press</span>
           </div>
           <p className="text-white text-sm mt-4 w-full mx-auto">You might need to ensure your hair is adequately moisturised to prevent dryness and brittleness.</p>
         </div>
@@ -82,7 +82,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <span className='text-2xl md:text-6xl'>Sweet spot for a silk press</span>
+            <span className='text-3xl md:text-6xl'>Sweet spot for a silk press</span>
           </div>
           <p className="text-white text-sm mt-4 w-full mx-auto">There's enough moisture in the air to keep your hair hydrated without causing significant frizz.</p>
         </div>
@@ -91,7 +91,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <span className='text-2xl md:text-6xl'>Safe with risk</span>
+            <span className='text-3xl md:text-6xl'>Safe with risk</span>
           </div>
           <p className="text-white text-sm mt-4 w-full mx-auto">You may need to use anti-humidity products to help maintain the style and reduce the risk of frizz.</p>
         </div>
@@ -100,7 +100,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
       return (
         <div className="text-center">
           <div className="flex items-center justify-center">
-            <span className='text-2xl md:text-6xl'>Avoid silk press</span>
+            <span className='text-3xl md:text-6xl'>Avoid silk press</span>
           </div>
           <p className="text-white text-sm mt-4 w-full mx-auto">There is too much moisture in the air. Your hair will likely to swell and revert back to coils, curls or waves.</p>
         </div>
@@ -145,7 +145,7 @@ const WeatherDashboard: React.FC<WeatherDashboardProps> = ({ cityName, currentWe
         </div>
 
         {/* Current Weather Info */}
-        <div className="flex flex-col items-center justify-around text-2xl font-montserrat my-5">
+        <div className="flex flex-col items-center justify-around text-2xl font-montserrat my-5 px-4">
           <p className={`mb-6`}>
             {dewPointMessage(currentDewPoint)}
           </p>
